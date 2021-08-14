@@ -9,6 +9,10 @@
 
                 <div class="card-body">
                     <div class="alert alert-info">
+                        <p>Регистрация  и подписка на  бот ниже</p>
+                        <p class="text-danger">Ставить ID телеги реальное</p>
+                    </div>
+                    <div class="alert alert-info">
                         <div>
                             Отправка на бот
                             @alekslvdel_bo

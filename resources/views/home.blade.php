@@ -26,6 +26,28 @@
                             </div>
                         </div>
 
+                        <div class="alert alert-info mb-2">
+                            <div>
+                                <h2>
+                                    <a target="_blank" href="https://data.gov.ua/dataset/eda4e3cf-0dda-46a1-a78a-ee264ebbfe97">https://data.gov.ua/dataset/eda4e3cf-0dda-46a1-a78a-ee264ebbfe97</a>
+                                </h2>
+                              <br>
+                                <a target="_blank" href="/send_telegram">Получить последний csv(ставить на крон)</a>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info mb-2">
+                            <div>
+                                <a target="_blank" href="/send_telegram">Отправить сообщения на  телегу(ставить на крон)</a>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info mb-2">
+                            <div>
+                                <a target="_blank" href="/logs">Лог действий</a>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
