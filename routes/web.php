@@ -16,11 +16,12 @@ use \App\Notifications\TelegrammBot;
 Route::get('/', function () {
     return view('welcome');
 });
-
+// парсер
+Route::get('/scraper',[App\Http\Controllers\ScraperController::class, 'index']);
 // отправка
 Route::get('/send_telegram', [App\Http\Controllers\SendtelegramController::class, 'index'])->name('Sendtelegram');
-//Notification::route('telegram', '425057358')
-//    ->notify(new TelegrammBot());
+// лог
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 Auth::routes();
 

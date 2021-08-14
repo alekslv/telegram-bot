@@ -8,6 +8,12 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
+                    <div class="alert alert-info">
+                        <div>
+                            Отправка на бот
+                            @alekslvdel_bo
+                        </div>
+                    </div>
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
@@ -39,9 +45,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">
                                 Telegram user id
                             </label>
-                            <label>
-                                <span class="strong">@my_id_bot</span>
-                            </label>
+
                             <div class="col-md-6">
                                 <input id="email" type="number"
                                        class="form-control @error('telegram_user_id') is-invalid @enderror"
@@ -51,6 +55,16 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <div class="alert alert-info">
+                                    <div>
+                                        Узнать
+                                       @my_id_bot
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
