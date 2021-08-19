@@ -25,6 +25,7 @@ class SendtelegramController extends Controller
 //                }
                 $data = [
                     'text'=>"Лот: ".$item->number."\nНазва: ".$item->name."\nСтартова ціна: ".$item->start_price,
+                    'link'=>'https://setam.net.ua/auctions/filters/number='.$item->number
                 ];
                 foreach ($users as $user) {
                     if ($user->telegram_user_id) {
@@ -32,6 +33,8 @@ class SendtelegramController extends Controller
                             ->notify(new TelegrammBot($data));
                     }
                 }
+                // роскоментировать !!!!!!!!!!!!!!!!!!!!
+                // не отправлять старые записи
 //                DB::table('items')
 //                    ->where('id', $item->id)
 //                    ->update(['status' => 2]);

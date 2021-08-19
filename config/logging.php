@@ -113,6 +113,12 @@ return [
             'level' => 'info',
         ],
 
+        'users' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/users.log'),
+            'level' => 'info',
+        ],
+
     ],
 
 ];

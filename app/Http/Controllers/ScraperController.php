@@ -17,12 +17,18 @@ class ScraperController extends Controller
     {
         header('Content-Type: text/html; charset=utf-8');
         $client = new Client();
-        $crawler = $client->request('GET', 'https://data.gov.ua/dataset/eda4e3cf-0dda-46a1-a78a-ee264ebbfe97');
+        try {
+           $crawler = $client->request('GET', 'https://data.gov.ua/dataset/eda4e3cf-0dda-46a1-a78a-ee264ebbfe97');
+        } catch (\InvalidArgumentException $e) {
+            Log::channel('parser')->info('Сайт не отвечает. ' . $e->getMessage());
+            exit();
+        }
         try {
             $link = $crawler->filter('.resource-url-analytics')->link();
         } catch (\InvalidArgumentException $e) {
             Log::channel('parser')->info('Ссылка для скачивания csv не найдена. ' . $e->getMessage());
         }
+
         if (isset($link)) {
             // cылка на  док
             $uri = $link->getUri();
@@ -49,9 +55,6 @@ class ScraperController extends Controller
                         $start_price = $record["Стартова ціна"];
                         $price = $record["Ціна продажу"];
                         $proceedings = $record["Проовадження"];
-//                    if ($i > 1) {
-//                        break;
-//                    }
                         DB::table('items')->upsert(
                             [
                                 [

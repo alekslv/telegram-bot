@@ -25,8 +25,8 @@ class Item extends Model
     public function scopeKiev($query){
         $search='Київ';
         $search2='Київська обл.';
-        return $query->where('place', 'LIKE', '%' . $search . '%')
-                     ->orWhere('place', 'LIKE', '%' . $search2 . '%');
+        return $query->where('place', 'LIKE', '%' . $search . '%');
+//                     ->orWhere('place', 'LIKE', '%' . $search2 . '%');
     }
 
 }
