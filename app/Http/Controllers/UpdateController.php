@@ -40,6 +40,7 @@ class UpdateController extends Controller
                 if(isset($from['username'])){
                     $username=$from['username'];
                 }
+
                 DB::table('users')->upsert(
                     [
                         [

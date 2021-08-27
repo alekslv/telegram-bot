@@ -119,6 +119,12 @@ return [
             'level' => 'info',
         ],
 
+        'hook' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/hook.log'),
+            'level' => 'info',
+        ],
+
     ],
 
 ];
