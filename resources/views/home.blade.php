@@ -14,19 +14,16 @@
                             </div>
                         @endif
 
-                        <div class="text-center mb-2">
-                            {{ __('You are logged in!') }}
-                        </div>
 
 
                         <div class="alert alert-info">
                             <div>
                                 Отправка на бот
-                               @alekslvdel_bot
+                                @setamnews_bot
                             </div>
                         </div>
 
-                        <div class="alert alert-info mb-2">
+                        <div class="alert alert-info mb-2 d-none">
                             <p>Получить пользователей(cтавим на крон,лог users)</p>
                             <h2>
                                 <a target="_blank" href="/updates">
@@ -34,6 +31,7 @@
                                 </a>
                             </h2>
                         </div>
+
                         <div class="alert alert-info mb-2">
                             <div>
                                 <h2>

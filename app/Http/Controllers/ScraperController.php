@@ -48,13 +48,19 @@ class ScraperController extends Controller
                 foreach ($csv as $key => $record) {
                     $state = $record["Стан"];
                     if ("Реєстрація учасників" == $state) {
+
                         $name = $record["Назва"];
                         $category = $record["Категорія"];
                         $place = $record["Місцезнаходження"];
                         $number = $record["Номер лота"];
                         $start_price = $record["Стартова ціна"];
                         $price = $record["Ціна продажу"];
-                        $proceedings = $record["Проовадження"];
+
+                        $proceedings='';
+                        if(isset($record["Проовадження"])){
+                            $proceedings = $record["Проовадження"];
+                        }
+
                         DB::table('items')->upsert(
                             [
                                 [

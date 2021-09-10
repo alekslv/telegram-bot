@@ -41,36 +41,22 @@ class HelpCommand extends Command
                 ->first();
             if ($user) {
                 $keyboard = [
-                    ['/category'],
-                    ['/region'],
+                    ['Вибрати регіони'],
+                    ['Вибрати категорії'],
                 ];
                 $reply_markup = Keyboard::make([
                     'keyboard' => $keyboard,
                     'resize_keyboard' => true,
                     'one_time_keyboard' => true
                 ]);
-                /*
-                $btn1 = Keyboard::inlineButton([
-                    'text' => 'category',
-//                    'callback_data' => '/category',
-                    'callback_data' => 'data',
-                    'url' => 'https://t.me/all2all_bot?category=c'
-//                    'request_contact' => true,
-                ]);
-                $contact_keyboard = Keyboard::make([
-                    'keyboard' => [[$btn1]],
-                    'resize_keyboard' => true,
-                    'one_time_keyboard' => true
-                ]);
-                */
                 $user_id = $user->id;
                 $response = $this->replyWithMessage([
-                    'text' => 'Start' ,
+                    'text' => 'Start',
                     'reply_markup' => $reply_markup,
                     'chat_id' => $chat_user_id
                 ]);
-
-            }else{
+            }
+            else {
 
                 $telegram_user_id = $response->getMessage()->from->id;
                 $chat_user_id = $response->getMessage()->chat->id;
@@ -90,31 +76,17 @@ class HelpCommand extends Command
                     'created_at' => $time,
                     'updated_at' => $time,
                 ]);
-                $text = 'Привіт.Налаштування:'.chr(10).chr(10);
-                $text .= '/start - Додати або видалити регіон'.chr(10);
-                $text .= '/category  - Додати або видалити категорію'.chr(10).chr(10);
+
+                $text = config('telegram_text.start');
                 $response = $this->replyWithMessage([
-                    'text' => $text ,
+                    'text' => $text,
                     'chat_id' => $chat_user_id
                 ]);
-
             }
-
         }
         // регионы !!!!!!!!!!!!!!!!!!!
         if ($text == '/region') {
-            $keyboard = [
-                ['Додати або видалити всі регіони (якщо є регіони-все очищається)'],
-                ['м.Київ', 'Київська обл.'],
-                ['Вінницька обл.', 'Волинська обл.', 'Дніпропетровська обл.'],
-                ['Донецька обл.', 'Житомирська обл.', 'Закарпатська обл.'],
-                ['Запорізька обл.', 'Івано-Франківська обл.', 'Кіровоградська обл.'],
-                ['Луганська обл.', 'Львівська обл.'],
-                ['Миколаївська обл.','Одеська обл.','Полтавська обл.'],
-                ['Рівненська обл.','Сумська обл.','Тернопільська обл.'],
-                ['Харківська обл.','Херсонська обл.','Хмельницька обл.'],
-                ['Черкаська обл.','Чернівецька обл.','Чернігівська обл.']
-            ];
+            $keyboard = config('telegram_text.region_keyboard');
             $reply_markup = Keyboard::make([
                 'keyboard' => $keyboard,
                 'resize_keyboard' => true,
@@ -142,106 +114,12 @@ class HelpCommand extends Command
                     'chat_id' => $chat_user_id
                 ]);
             }
+
         }
         // категории
         if ($text == '/category') {
             $category = config('category');
-            $keyboard = [
-                ['Додати  або видалити всі категорії (якщо є категорії-все очищається)'],
-                [
-                    'Автобуси',
-                    'Аксесуари',
-                    'Аксесуари та інше',
-                ],
-                [
-                    'Аукціон із різнотипних товарів',
-                    'Банківське обладнання',
-                    'Брухт',
-                ],
-
-                [
-                    'Будівельні матеріали',
-                    'Будівлі',
-                    'Вантажні автомобілі',
-                ],
-
-                [
-                    'Велика побутова техніка',
-                    'Взуття',
-                    'Водний транспорт',
-                ],
-                [
-                    'Вугілля',
-                    'Гаражі/стоянки',
-                    'Господарчі товари',
-                ],
-                [
-                    'Житлова нерухомість',
-                    'Запчастини/аксесуари',
-                    'Земельні ділянки',
-                ],
-
-                [
-                    'Інструменти',
-                    'Інша техніка',
-                    'Інше',
-                ],
-                [
-                    'Канцелярські товари',
-                    'Кліматична  техніка',
-                    'Комерційна нерухомість',
-                ],
-                [
-                    "Комп'ютери",
-                    "Комп'ютерна і офісна техніка",
-                    'Комплектуючі',
-                ],
-
-                [
-                    'Легкові автомобілі',
-                    'Мала побутова техніка',
-                    'Меблі',
-                ],
-                [
-                    'Мобільні телефони',
-                    'Монітори',
-                    'Мототранспорт',
-                ],
-                [
-                    'Накопичувачі',
-                    'Недобудована',
-                    'Нежитлове приміщення',
-                ],
-                [
-                    'Ноутбуки',
-                    'Обладнання',
-                    'Одяг',
-                ],
-                [
-                    'Оргтехніка',
-                    'Планшети, електронні книги',
-                    'Причепи',
-                ],
-                [
-                    'Промислова нерухомість',
-                    'Рації/радіостанції',
-                    'Сад і дім',
-                ],
-                [
-                    'Серверне обладнання',
-                    'Сировина',
-                    'Сільгосп продукція',
-                ],
-                [
-                    'Сільгосптехніка',
-                    'Спецтехніка',
-                    'ТВ, Фото, Відео, Аудіо',
-                ],
-                [
-                    'Телевізори',
-                    'Товари для дому',
-                ],
-            ];
+            $keyboard = config('telegram_text.category_keyboard');
             $reply_markup = Keyboard::make([
                 'keyboard' => $keyboard,
                 'resize_keyboard' => true,
@@ -263,12 +141,12 @@ class HelpCommand extends Command
                         $category_text .= $category_user->category . chr(10);
                     }
                 }
+                $response = $this->replyWithMessage([
+                    'text' => 'Додати категорію' . $category_text,
+                    'reply_markup' => $reply_markup,
+                    'chat_id' => $chat_user_id
+                ]);
             }
-            $response = $this->replyWithMessage([
-                'text' => 'Додати категорію' . $category_text,
-                'reply_markup' => $reply_markup,
-                'chat_id' => $chat_user_id
-            ]);
         }
         //******************************************************
 

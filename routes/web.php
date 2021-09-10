@@ -6,8 +6,10 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use \App\Notifications\TelegrammBot;
 use Telegram\Bot\Laravel\Facades\Telegram;
+
 use \App\Services\RegionService;
 use \App\Services\UserService;
+use \App\Services\CommandService;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,12 +48,12 @@ Route::post('/getWebhookInfo', function () {
 
 //    Log::channel('hook')->info($text);
 //    Log::channel('hook')->info(json_encode($response));
-//    dd();
 
     if (isset($text) && !empty($text)) {
         if ($text == '/start' || $text == '/category'|| $text == '/region') {
             $update = Telegram::commandsHandler(true);
         } elseif (in_array($text, $region)) {
+            //выбор региона
             RegionService::region_add($response);
         } elseif (in_array($text, $category)) {
             RegionService::category_add($response);
@@ -59,6 +61,12 @@ Route::post('/getWebhookInfo', function () {
             RegionService::region_all($response);
         } elseif ($text == 'Додати  або видалити всі категорії (якщо є категорії-все очищається)') {
             RegionService::category_all($response);
+        } elseif ($text == 'Вибрати регіони') {
+            CommandService::region();
+        }elseif ($text == 'Вибрати категорії') {
+            CommandService::category();
+        }elseif ($text == 'Назад') {
+            CommandService::back();
         }
     }
     return 'ok';

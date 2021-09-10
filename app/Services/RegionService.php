@@ -3,9 +3,11 @@
 
 namespace App\Services;
 
+use App\Services\CommandService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Telegram\Bot\Laravel\Facades\Telegram;
 
 class RegionService
 {
@@ -18,13 +20,6 @@ class RegionService
 
         $username = $response->message->from->username;
         $fio = $response->message->from->username;
-
-//        Log::channel('hook')->info($response->message->from->first_name);
-//        Log::channel('hook')->info(json_encode(isset($response->message->from->first_name)));
-//        Log::channel('hook')->info(json_encode(is_object($response->message->from)));
-//        Log::channel('hook')->info(json_encode(is_object($response->message->from->first_name)));
-//        Log::channel('hook')->info(json_encode($response->message->from->username));
-//        Log::channel('hook')->info($username);
 
         DB::table('users')->upsert(
             [
@@ -72,7 +67,7 @@ class RegionService
                     'region' => $text
                 ]);
             }
-
+            CommandService::region();
         }
     }
 
@@ -132,6 +127,7 @@ class RegionService
                     'category' => $text
                 ]);
             }
+            CommandService::category();
             Log::channel('hook')->info('Update ' . $user->id);
         }
     }
@@ -142,8 +138,6 @@ class RegionService
 
         $telegram_user_id = $response->message->from->id;
         $time = Carbon::now();
-
-
         $username = $response->message->from->username;
         $fio = $response->message->from->username;
 
@@ -191,7 +185,7 @@ class RegionService
                     ]);
                 }
             }
-
+            CommandService::region();
 
             Log::channel('hook')->info('Update ' . $user->id);
         }
@@ -252,7 +246,9 @@ class RegionService
                     ]);
                 }
             }
+            CommandService::category();
             Log::channel('hook')->info('Update ' . $user->id);
         }
     }
+
 }
