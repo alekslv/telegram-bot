@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\UserService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Goutte\Client;
@@ -9,7 +10,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use League\Csv\Reader;
 use League\Csv\Statement;
-
+use App\Models\User;
+use App\Models\Item;
 class ScraperController extends Controller
 {
 
@@ -48,7 +50,6 @@ class ScraperController extends Controller
                 foreach ($csv as $key => $record) {
                     $state = $record["Стан"];
                     if ("Реєстрація учасників" == $state) {
-
                         $name = $record["Назва"];
                         $category = $record["Категорія"];
                         $place = $record["Місцезнаходження"];
@@ -94,6 +95,15 @@ class ScraperController extends Controller
                 }
 
                 Log::channel('parser')->info('Обновлена информация. Добавлено или обновлено- ' .$i);
+
+                // обновляем связь для пользователя
+                $users=User::all();
+                $items=Item::orderBy('id', 'ASC')->active()->get();
+                foreach ($users as $user){
+                    UserService::update_item($user,$items);
+                }
+
+
 
             }
             catch (\InvalidArgumentException $e) {

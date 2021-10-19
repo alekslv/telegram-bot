@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->telegram_user_id;
     }
+
+    public function items()
+    {
+        return $this->belongsToMany(Item::class);
+    }
 }

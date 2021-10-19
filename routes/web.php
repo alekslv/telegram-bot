@@ -22,21 +22,26 @@ use \App\Services\CommandService;
 |
 */
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+//Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+Route::view('/', 'welcome');
+
 // парсер
 Route::get('/scraper', [App\Http\Controllers\ScraperController::class, 'index']);
 
 // получить сообщения
-Route::get('/updates', [App\Http\Controllers\UpdateController::class, 'index']);
+//Route::get('/updates', [App\Http\Controllers\UpdateController::class, 'index']);
 
 // отправка
 Route::get('/send_telegram', [App\Http\Controllers\SendtelegramController::class, 'index'])->name('Sendtelegram');
+
+// очистка раз месяц таблиц
+Route::get('/clear', [App\Http\Controllers\ClearController::class, 'index']);
+
 // лог
-Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 // вебхук
 // getWebhookInfo
-//Route::post('/getWebhookInfo', [App\Http\Controllers\WebhookController::class, 'index']);
 Route::post('/getWebhookInfo', function () {
 
     $region = config('region');
@@ -45,9 +50,6 @@ Route::post('/getWebhookInfo', function () {
     $response = Telegram::getWebhookUpdates();
     $message = $response->message;
     $text = $message->text;
-
-//    Log::channel('hook')->info($text);
-//    Log::channel('hook')->info(json_encode($response));
 
     if (isset($text) && !empty($text)) {
         if ($text == '/start' || $text == '/category'|| $text == '/region') {
@@ -72,5 +74,4 @@ Route::post('/getWebhookInfo', function () {
     return 'ok';
 });
 
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();

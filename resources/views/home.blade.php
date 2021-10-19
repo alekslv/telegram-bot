@@ -56,6 +56,15 @@
                             </div>
                         </div>
 
+
+                        <div class="alert alert-info mb-2">
+                            <div>
+                                <a target="_blank" href="/clear">
+                                    Очистка  таблиц : items, item_user
+                                </a>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

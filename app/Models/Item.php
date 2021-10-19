@@ -11,22 +11,29 @@ class Item extends Model
 
     public function scopeActive($query)
     {
-        return $query->where('status',1);
+        return $query->where('status', 1);
     }
     /*
      *         WHERE `category` LIKE '%Житлова нерухомість%'
      *          AND (`place` LIKE '%м.Київ%' OR `place` LIKE '%Київська обл.%')
      */
 
-    public function scopeResidential($query){
-        $search_cat='Житлова нерухомість';
+    public function scopeResidential($query)
+    {
+        $search_cat = 'Житлова нерухомість';
         return $query->where('category', 'LIKE', '%' . $search_cat . '%');
     }
-    public function scopeKiev($query){
-        $search='Київ';
-        $search2='Київська обл.';
+    public function scopeKiev($query)
+    {
+        $search = 'Київ';
+        $search2 = 'Київська обл.';
         return $query->where('place', 'LIKE', '%' . $search . '%');
-//                     ->orWhere('place', 'LIKE', '%' . $search2 . '%');
+        //                     ->orWhere('place', 'LIKE', '%' . $search2 . '%');
     }
 
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

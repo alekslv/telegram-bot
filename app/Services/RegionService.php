@@ -4,6 +4,8 @@
 namespace App\Services;
 
 use App\Services\CommandService;
+use App\Services\UserService;
+
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -67,7 +69,9 @@ class RegionService
                     'region' => $text
                 ]);
             }
+
             CommandService::region();
+            UserService::update_item($user);
         }
     }
 
@@ -128,6 +132,7 @@ class RegionService
                 ]);
             }
             CommandService::category();
+            UserService::update_item($user);
             Log::channel('hook')->info('Update ' . $user->id);
         }
     }
@@ -174,7 +179,9 @@ class RegionService
 
             if ($user_region_count > 0) {
                 // если были регионы- то новые не  добавляем
-                // очищаем все
+                // очищаем все зависимости item_user
+
+
             } else {
                 // если пусто
                 $regions = config('region');
@@ -186,7 +193,7 @@ class RegionService
                 }
             }
             CommandService::region();
-
+            UserService::update_item($user);
             Log::channel('hook')->info('Update ' . $user->id);
         }
     }
@@ -247,6 +254,7 @@ class RegionService
                 }
             }
             CommandService::category();
+            UserService::update_item($user);
             Log::channel('hook')->info('Update ' . $user->id);
         }
     }

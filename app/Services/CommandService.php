@@ -43,6 +43,9 @@ class CommandService
                 'chat_id' => $update['message']['chat']['id'],
             ]);
 
+            // Обновляем записи для пользователя при смене региона  категории
+//            DB::table('')
+
         }
 
     }
